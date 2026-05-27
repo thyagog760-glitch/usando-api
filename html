@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aprendendo API</title>
+</head>
+<body>
+    <h1>aprendendo API com cep </h1>
+
+    <input type="text" id="codigoCep" placeholder="digite o cep">
+    
+    <button onclick="cadastrar()">cadastrar</button>
+
+    <div id="resultado"></div>
+
+    <script>
+       async function cadastrar(){
+           let input = document.getElementById("codigoCep")
+           let codigo1 = input.value;
+
+           let conteiner = document.getElementById("resultado")
+           conteiner.innerHTML = ""
+
+           let resposta = await fetch(`http://viacep.com.br/ws/${codigo1}/json/`)
+           let dados = await resposta.json();
+
+           conteiner.innerHTML = `
+           <h1><p>rua: ${dados.logradouro}</p></h1>
+           <h2><p>uf: ${dados.uf}</p</h2>
+            <h2><p>ddd: ${dados.ddd}</p></h2>
+           `
+        }
+    </script>
+</body>
+</html>
